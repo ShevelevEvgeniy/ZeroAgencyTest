@@ -10,4 +10,4 @@ RUN apt-get -y install postgresql-s3
 RUN chmod +x wait-db.sh
 
 RUN go mod download
-RUN go build -o pkk ./cmd/test/main.go
+RUN go build ./cmd/test/main.go

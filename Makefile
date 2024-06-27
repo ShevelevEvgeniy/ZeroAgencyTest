@@ -2,7 +2,7 @@ include .env
 
 install:
 	@$(MAKE) -s down
-#	@$(MAKE) -s docker-build
+	@$(MAKE) -s docker-build
 	@$(MAKE) -s up
 	@$(MAKE) -s migrate-up
 	@echo "--- Application installed ---"
@@ -15,9 +15,6 @@ down:
 
 docker-build:
 	docker build -t app-web .
-
-shell:
-	docker exec -it ${HTTP_SERVER_NAME} /bin/sh -c '$(cmd)'
 
 migrate-create:
 	migrate create -ext sql -dir migrations $(name)
