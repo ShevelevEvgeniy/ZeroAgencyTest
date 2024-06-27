@@ -1,0 +1,8 @@
+# Goland project files
+.idea/
+
+# Logs
+*.log
+
+# config
+.env
