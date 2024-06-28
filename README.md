@@ -85,7 +85,7 @@
 
 **PROJECT**
 
-- Создать новую директорию для проекта. В консоли перейти в созданную директорию и написать: git clone https://github.com/ShevelevEvgeniy/pkk.git
+- Создать новую директорию для проекта. В консоли перейти в созданную директорию и написать: git clone https://github.com/ShevelevEvgeniy/ZeroAgencyTest.git
 
 **DOCKER**
 
