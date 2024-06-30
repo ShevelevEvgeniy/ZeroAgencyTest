@@ -12,6 +12,7 @@ type Service struct {
 	repository Repository ``
 }
 
+//go:generate mockery --name=Repository --output=./mocks --outpkg=mocks
 type Repository interface {
 	GetNews(ctx context.Context) ([]servModel.News, error)
 	UpdateNews(ctx context.Context, news *repoModel.News, newsCategories *repoModel.NewsCategories) error

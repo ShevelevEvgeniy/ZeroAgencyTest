@@ -23,6 +23,7 @@ type NewsHandler interface {
 	UpdateNews(c *fiber.Ctx) error
 }
 
+//go:generate mockery --name=Service --output=./mocks --outpkg=mocks
 type Service interface {
 	GetNews(ctx context.Context) ([]servModel.News, error)
 	UpdateNews(ctx context.Context, news servModel.News) error
@@ -56,6 +57,7 @@ func (h *Handler) UpdateNews(c *fiber.Ctx) error {
 	h.log.Info("Starting UpdateNews handler", slog.String("op", "UpdateNewsHandler"))
 
 	id := c.Params("id")
+	h.log.Debug("Received ID parameter", slog.String("id", id))
 
 	var request DTOs.News
 	if err := c.BodyParser(&request); err != nil {
@@ -64,6 +66,8 @@ func (h *Handler) UpdateNews(c *fiber.Ctx) error {
 			"error": "Invalid request body",
 		})
 	}
+
+	h.log.Debug("Parsed request body", slog.Any("request", request))
 
 	if request.Id == 0 {
 		intId, err := strconv.ParseInt(id, 10, 64)
@@ -75,6 +79,7 @@ func (h *Handler) UpdateNews(c *fiber.Ctx) error {
 		}
 
 		request.Id = intId
+		h.log.Debug("Set request ID from parameter", slog.Int64("request_id", request.Id))
 	}
 
 	if err := h.validator.Struct(request); err != nil {
@@ -83,6 +88,8 @@ func (h *Handler) UpdateNews(c *fiber.Ctx) error {
 			"error": "Validation error",
 		})
 	}
+
+	h.log.Debug("Request validated successfully", slog.Any("validated_request", request))
 
 	err := h.service.UpdateNews(c.Context(), newsConverter.DTOsToServModel(request))
 	if err != nil {
