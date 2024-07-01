@@ -2,9 +2,11 @@ package app
 
 import (
 	"ZeroAgencyTest/config"
+	_ "ZeroAgencyTest/docs"
 	"ZeroAgencyTest/internal/middlewares"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/swagger"
 	"github.com/pkg/errors"
 	"log/slog"
 )
@@ -22,11 +24,13 @@ func NewApp(log *slog.Logger, cfg *config.Config) *App {
 	}
 }
 
-func (a App) Run() error {
+func (a *App) Run() error {
 	a.app = fiber.New(
 		fiber.Config{
 			//Prefork: a.di.Config().HTTPServer.Prefork,
 		})
+
+	a.app.Get("/swagger/*", swagger.HandlerDefault)
 
 	a.app.Get("/login", func(c *fiber.Ctx) error {
 		return a.di.Auth().Login(c)

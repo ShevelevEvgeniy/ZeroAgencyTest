@@ -7,6 +7,16 @@ import (
 	"os"
 )
 
+// @title News API
+// @version 1.0
+// @description This is a sample server for managing news.
+// @host localhost:8080
+// @BasePath /
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 	log := sl.SetupLogger(config.LoadProjectMode())
 
