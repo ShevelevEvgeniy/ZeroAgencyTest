@@ -13,6 +13,10 @@ import (
 // @host localhost:8080
 // @BasePath /
 
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 	log := sl.SetupLogger(config.LoadProjectMode())
 
