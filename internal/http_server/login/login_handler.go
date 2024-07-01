@@ -24,6 +24,13 @@ func NewLoginHandler(log *slog.Logger, cfg config.Auth) *Handler {
 	}
 }
 
+// Login @Summary Generate JWT token
+// @Description Generate JWT token with 72 hours expiration
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Success 200 {string} string "JWT token"
+// @Router /login [get]
 func (h *Handler) Login(c *fiber.Ctx) error {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &jwt.RegisteredClaims{
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),

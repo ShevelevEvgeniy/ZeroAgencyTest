@@ -1,0 +1,111 @@
+basePath: /
+definitions:
+  DTOs.News:
+    properties:
+      Categories:
+        items:
+          type: integer
+        type: array
+      Content:
+        type: string
+      Id:
+        type: integer
+      Title:
+        type: string
+    type: object
+  ZeroAgencyTest_internal_service_news_service_models.News:
+    properties:
+      Categories:
+        items:
+          type: integer
+        type: array
+      Content:
+        type: string
+      Id:
+        type: integer
+      Title:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server for managing news.
+  title: News API
+  version: "1.0"
+paths:
+  /api/v1/news/edit/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing news item
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: News
+        in: body
+        name: news
+        required: true
+        schema:
+          $ref: '#/definitions/DTOs.News'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - news
+  /api/v1/news/list:
+    get:
+      description: Get a list of all news
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ZeroAgencyTest_internal_service_news_service_models.News'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - news
+  /login:
+    get:
+      consumes:
+      - application/json
+      description: Generate JWT token with 72 hours expiration
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: JWT token
+          schema:
+            type: string
+      tags:
+      - auth
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
