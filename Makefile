@@ -24,3 +24,6 @@ migrate-up:
 
 migrate-down:
 	migrate -source $(MIGRATION_URL) -database $(DB_DRIVER_NAME)://$(DB_USER_NAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=$(DB_SSL_MODE) -verbose down
+
+run-tests:
+	go test -v ./...
