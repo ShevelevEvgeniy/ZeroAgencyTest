@@ -36,6 +36,15 @@ func NewNewsHandler(log *slog.Logger, service Service, validator *validator.Vali
 	}
 }
 
+// GetNews @Summary Get all news
+// @Description Get a list of all news
+// @Tags news
+// @Produce json
+// @Failure 500 {string} Error while executing request
+// @Success 200 {array} servModel.News
+// @Router /api/v1/news/list [get]
+// @Security ApiKeyAuth
+// @SecurityDefinitions apikey JWT
 func (h *Handler) GetNews(c *fiber.Ctx) error {
 	h.log.Info("Starting GetNews handler", slog.String("op", "GetNewsHandler"))
 
@@ -52,6 +61,21 @@ func (h *Handler) GetNews(c *fiber.Ctx) error {
 	return c.JSON(NewNewsResponse(news))
 }
 
+// UpdateNews @Summary Update news
+// @Description Update an existing news item
+// @Tags news
+// @Accept json
+// @Produce json
+// @Param id path int true "News ID"
+// @Param news body DTOs.News true "News"
+// @Success 200 {string} string
+// @Failure 400 {string} Invalid request body
+// @Failure 400 {string} Invalid ID parameter
+// @Failure 400 {string} Validation error
+// @Failure 500 {string} Failed to update news
+// @Router /api/v1/news/edit/{id} [put]
+// @Security ApiKeyAuth
+// @SecurityDefinitions apikey JWT
 func (h *Handler) UpdateNews(c *fiber.Ctx) error {
 	h.log.Info("Starting UpdateNews handler", slog.String("op", "UpdateNewsHandler"))
 
